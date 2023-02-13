@@ -1,0 +1,2 @@
+#!/ban/bash
+find . -type f -name "*.js" -delete
