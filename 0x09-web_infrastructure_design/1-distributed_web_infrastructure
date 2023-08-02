@@ -1,0 +1,46 @@
+Specifics about this infrastructure:
+
+1. Load Balancer (HAproxy):
+We add a load balancer to distribute incoming traffic across the two web servers (Nginx) to ensure high availability and load distribution. HAproxy is a popular open-source load balancer known for its speed and efficiency.
+
+2. Additional Web Server (Nginx):
+We add a second Nginx web server to create redundancy and eliminate the single point of failure (SPOF). If one web server goes down, the load balancer can redirect traffic to the other server.
+
+3. Application Server:
+The application server is responsible for executing the website's code base. By separating the application logic from the web server, it allows for scalability and ease of deployment.
+
+4. MySQL Database (Primary-Replica Cluster):
+We set up a MySQL database cluster with a Primary-Replica (Master-Slave) configuration. The Primary node serves as the master, handling read and write operations, while the Replica nodes act as slaves, replicating data from the Primary node.
+
+Distribution Algorithm for Load Balancer (HAproxy):
+The load balancer can be configured with a Round Robin distribution algorithm. With Round Robin, each new request is sent to the next available server in a cyclical manner. This ensures that incoming traffic is evenly distributed among the web servers, allowing them to share the load.
+
+Load Balancer Setup - Active-Active or Active-Passive:
+In this setup, the load balancer is configured in an Active-Passive mode. The Active-Passive configuration means that only one load balancer is actively handling traffic at any given time. If the active load balancer fails, the passive one takes over its duties. This ensures high availability of the load balancer itself and minimizes potential downtime.
+
+Database Primary-Replica (Master-Slave) Cluster:
+In the Primary-Replica cluster, the Primary node serves as the master that handles write operations (e.g., inserts, updates, deletes) from the application. The data changes made on the Primary node are then replicated to the Replica nodes, which serve as read replicas. Application read queries can be directed to any of the Replica nodes, distributing the read load and improving read performance.
+
+Difference Between the Primary Node and Replica Node:
+The Primary node is responsible for handling write operations and is the authoritative source for the database. All data changes and writes are made on the Primary node. The Replica nodes, on the other hand, serve as read replicas and provide read-only copies of the data. They are not authoritative for write operations and rely on the Primary node's data replication.
+
+Issues with this Infrastructure:
+
+1. Single Point of Failure (SPOF):
+Despite adding more components like additional servers and load balancer, there is still a potential single point of failure. For example, if the load balancer itself becomes unavailable, the entire system may become inaccessible, even though there are multiple web servers.
+
+2. Security Issues:
+The infrastructure lacks certain security measures such as a firewall and HTTPS. Without a firewall, the servers and services may be exposed to unauthorized access and attacks. Additionally, not using HTTPS can compromise the security and privacy of user data during transmission.
+
+3. No Monitoring:
+Monitoring tools are not included in this infrastructure, making it difficult to detect and respond to performance issues, security threats, or other anomalies in real-time.
+
+To improve the infrastructure, additional steps could be taken, such as:
+
+- Implementing a secondary load balancer in an active-active configuration for higher availability.
+- Setting up a firewall to control incoming and outgoing traffic to the servers.
+- Enabling HTTPS to encrypt communication between users and the web server, enhancing security.
+- Implementing monitoring tools to track server performance, resource utilization, and potential security breaches in real-time.
+
+These improvements would make the infrastructure more robust, secure, and reliable
+

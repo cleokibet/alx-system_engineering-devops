@@ -1,0 +1,29 @@
+what is a Server?
+A server is a computer system or a software program that serves as a central repository for data, files, and applications, and it provides services and resources to other computers or clients connected to it over a network. In this context, the "server" refers to a physical computer or a virtual machine with an IP address (e.g., 8.8.8.8) that hosts the website and runs the necessary software components like the web server, application server, and database.
+
+What is the Role of the Domain Name?
+A domain name is a human-readable address that allows users to access websites and other resources on the internet. It provides a more user-friendly alternative to numeric IP addresses. In this case, the domain name is "foobar.com." The domain name system (DNS) resolves the domain name to the corresponding IP address (8.8.8.8 in this example), allowing users to access the website by simply typing "www.foobar.com" in their web browsers.
+
+What Type of DNS Record is "www" in www.foobar.com?
+The DNS record type associated with "www" in www.foobar.com is called a "CNAME" record (Canonical Name record). The CNAME record points the subdomain "www" to the root domain "foobar.com." It acts as an alias for the root domain and ensures that when users type "www.foobar.com" in their browsers, they reach the same server as when they type "foobar.com" without the "www."
+
+What is the Role of the Web Server?
+The web server (Nginx in this case) handles incoming HTTP requests from users' web browsers. Its primary role is to serve static content like HTML, CSS, JavaScript, images, and other files to the user's browser. Additionally, the web server can act as a reverse proxy, forwarding dynamic requests to the application server for processing.
+
+What is the Role of the Application Server?
+The application server is responsible for executing the code base of your website/application. It handles dynamic content generation, business logic, and interacts with the database as needed. In this setup, Nginx forwards incoming requests to the application server, and the application server processes these requests, generates responses, and sends them back to Nginx for delivery to the user.
+
+What is the Role of the Database?
+The database (MySQL in this case) stores and manages the website's data. It is used to store information like user accounts, posts, comments, product details, etc. The application server interacts with the database to fetch or store data based on the user's requests. For example, when a user submits a form on the website, the application server may use the database to store the form data.
+
+What is the Server Using to Communicate with the User's Computer Requesting the Website?
+The server communicates with the user's computer requesting the website using the HTTP (Hypertext Transfer Protocol) or HTTPS (HTTP Secure) protocol. When a user types "www.foobar.com" in their web browser and hits Enter, the browser sends an HTTP request to the server (IP address 8.8.8.8) asking for the website's content. The server processes this request, generates the appropriate HTTP response (containing the requested content), and sends it back to the user's browser over the internet. The browser then renders the website content, making it visible to the user. If HTTPS is used, the communication between the server and the user's computer is encrypted for added security.
+
+These specifics should give you a clearer understanding of the roles and interactions within the one-server web infrastructure hosting the website reachable via www.foobar.com.
+
+Single Point of Failure (SPOF):
+The main concern with this infrastructure is that it has a single server handling all the components: web server, application server, and database. This creates a single point of failure (SPOF). If the server experiences hardware failure, software issues, or any other problem, the entire website will become inaccessible until the server is fixed. This means that any downtime or maintenance on this single server directly impacts the availability of the website.
+
+Downtime During Maintenance:
+When deploying new code or making changes to the web server or application server configurations, the server might need to be restarted. During this maintenance window, the website will experience downtime, and users won't be able to access it. This downtime can be especially disruptive during peak hours when there is a higher influx of visitors.
+
