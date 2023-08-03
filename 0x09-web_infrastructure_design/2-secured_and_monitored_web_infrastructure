@@ -1,0 +1,38 @@
+Specifics about this infrastructure:
+
+1. Firewalls (x3):
+We add three firewalls to provide an extra layer of security for the servers. Firewalls help control and monitor incoming and outgoing traffic, ensuring that only authorized traffic is allowed while blocking potential threats and unauthorized access.
+
+2. SSL Certificate for HTTPS:
+An SSL certificate is added to enable HTTPS, which encrypts the communication between users' web browsers and the web server. HTTPS ensures that sensitive data, such as login credentials or personal information, is transmitted securely, protecting it from eavesdropping and interception.
+
+3. Monitoring Clients (Data Collectors):
+Three monitoring clients are added to collect data from the servers and services. These monitoring clients act as data collectors for monitoring tools like Sumo Logic or other monitoring services. They gather information about server performance, resource utilization, security incidents, and other critical metrics.
+
+Explanation of Additional Elements:
+
+- Firewalls: Firewalls help protect the infrastructure from unauthorized access, hacking attempts, and malicious traffic. They act as a barrier between the public internet and the servers, allowing only specific, authorized traffic to pass through.
+
+- HTTPS: Serving traffic over HTTPS ensures that data transmitted between users and the web server is encrypted and secure, preventing data interception and unauthorized access to sensitive information.
+
+- Monitoring: Monitoring is used to keep track of the health and performance of the infrastructure and applications. It helps detect and diagnose issues early on, ensuring timely resolution and preventing potential downtime or security breaches.
+
+- Monitoring Data Collection: The monitoring clients collect data from various parts of the infrastructure, such as CPU usage, memory, disk space, network traffic, and application-specific metrics. They send this data to the monitoring service for analysis and visualization.
+
+How to Monitor Web Server QPS:
+
+To monitor the web server's queries per second (QPS), you would set up monitoring to collect data on the number of incoming HTTP requests per second to the Nginx web servers. The monitoring service would aggregate this data over time and display it on a dashboard, allowing you to track the web server's request rate and identify any unusual spikes or drops in traffic.
+
+Issues with this Infrastructure:
+
+1. Terminating SSL at the Load Balancer Level:
+While terminating SSL at the load balancer provides benefits like offloading SSL processing from the application servers, it can be an issue as the traffic between the load balancer and application servers is transmitted in plain HTTP. If an attacker gains access to the internal network, they could potentially intercept sensitive data transmitted between the load balancer and application servers.
+
+2. Single MySQL Server Accepting Writes:
+Having only one MySQL server capable of accepting writes creates a single point of failure. If this server fails, the application won't be able to write data to the database, leading to service disruption. Implementing a Primary-Replica (Master-Slave) cluster would address this issue by introducing database replication and high availability.
+
+3. Identical Servers with All Components:
+Having servers with the exact same components (database, web server, and application server) might be a problem because it limits the ability to scale and distribute the workload. For instance, if the application server requires more resources to handle a surge in traffic, it could potentially overload all servers. Introducing different roles, such as dedicated database servers or caching servers, can optimize the infrastructure for specific tasks and improve scalability.
+
+By addressing these issues and making necessary improvements, the infrastructure can be better equipped to handle security, scalability, and performance challenges.
+
