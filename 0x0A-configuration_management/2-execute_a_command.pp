@@ -1,7 +1,6 @@
-# This code do kill process killmenow
+# kill process killmenow
 
-exec { 'dokill':
-  command  => 'dokill killmenow',
+exec { 'pkill':
+  command  => 'pkill killmenow',
   provider => 'shell',
-  return   => [0,1],
 }
