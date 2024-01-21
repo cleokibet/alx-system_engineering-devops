@@ -1,5 +1,8 @@
 Postmortem
+
+
  ![image](https://github.com/cleokibet/alx-system_engineering-devops/assets/122830773/dff7cb05-83f6-4bbb-a971-beaf4739f818)
+ 
 
 Outage occurred 0500 hrs. on an isolated Ubuntu 14.04 container running an Apache web server. GET requests on the server led to 500 Internal Server Error's, when the expected response was an HTML file.
 Debugging Process
